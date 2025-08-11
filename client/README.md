@@ -25,3 +25,5 @@
 - Install the packages => npm i react-hot-toast axios
 
 - Created Best Seller section in Home Page
+
+- created Bottom Banner in Home Page
