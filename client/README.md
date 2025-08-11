@@ -27,3 +27,5 @@
 - Created Best Seller section in Home Page
 
 - created Bottom Banner in Home Page
+
+- Created Newsletter section in Home Page
