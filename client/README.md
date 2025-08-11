@@ -19,3 +19,9 @@
 - We will use prebuiltui for navbar
 
 - Created Navbar of the project
+
+- Created Banner and categories in Home page
+
+- Install the packages => npm i react-hot-toast axios
+
+- Created Best Seller section in Home Page
