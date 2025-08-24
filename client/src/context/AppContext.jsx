@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 export const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
-  // const currency = import.meta.VITE_CURRENCY;
+  const currency = import.meta.VITE_CURRENCY;
 
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -44,7 +44,7 @@ export const AppContextProvider = ({ children }) => {
   }
 
   // Remove Product from Cart
-const removeFromCart = (itemId)=>{
+  const removeFromCart = (itemId)=>{
     let cartData = structuredClone(cartItems);
     if(cartData[itemId]){
         cartData[itemId] -= 1;
@@ -55,6 +55,28 @@ const removeFromCart = (itemId)=>{
     toast.success("Removed from Cart")
     setCartItems(cartData)
 }
+
+  
+  // Get Cart Item Count
+  const getCartCount = () => {
+    let totalCount =0;
+    for(const item in cartItems){
+        totalCount += cartItems[item];
+    }
+    return totalCount;
+  }
+
+  // Get Cart Total Amount =>
+  const getCartAmount = () => {
+    let totalAmount =0;
+    for(const item in cartItems){
+        let itemInfo = products.find((prod)=> prod._id === item);
+        if(cartItems[item] >0){
+            totalAmount += itemInfo.offerPrice * cartItems[item];
+        }
+    }
+    return Math.floor(totalAmount * 100) / 100;
+  }   
 
   useEffect(() => {
     fetchProducts()
@@ -69,13 +91,15 @@ const removeFromCart = (itemId)=>{
     showUserLogin,
     setShowUserLogin,
     products,
-    // currency,
+    currency,
     addToCart,
     updateCartItem,
     removeFromCart,
     cartItems,
     searchQuery,
-    setSearchQuery
+    setSearchQuery,
+    getCartCount,
+    getCartAmount,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
