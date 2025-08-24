@@ -1,5 +1,7 @@
 # MyMart =>
 
+## FrontEnd => (npm run dev)
+
 - Create a clent folder using - npm create vite@latest
 
 - Install all dependencies -> npm install
@@ -29,3 +31,5 @@
 - created Bottom Banner in Home Page
 
 - Created Newsletter section in Home Page
+
+- Created Footer section

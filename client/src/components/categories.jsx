@@ -4,7 +4,7 @@ import { useAppContext } from '../context/AppContext'
 
 const Categories = () => {
 
-    const {navigate} = useAppContext()
+    const {navigate} = useAppContext();
 
   return (
     <div className='mt-16'>
@@ -31,4 +31,4 @@ const Categories = () => {
   )
 }
 
-export default Categories;
+export default Categories
