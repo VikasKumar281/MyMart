@@ -36,3 +36,10 @@
 
 - Created Login Page 
 
+- Created All Products Page
+
+- Created Product Category Page
+
+- Created Products Detail Page 
+
+
