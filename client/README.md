@@ -33,3 +33,6 @@
 - Created Newsletter section in Home Page
 
 - Created Footer section
+
+- Created Login Page 
+
