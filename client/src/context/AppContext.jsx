@@ -77,6 +77,7 @@ export const AppContextProvider = ({ children }) => {
     }
     return Math.floor(totalAmount * 100) / 100;
   }   
+  
 
   useEffect(() => {
     fetchProducts()

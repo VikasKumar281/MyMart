@@ -42,4 +42,6 @@
 
 - Created Products Detail Page 
 
+- Created Cart Page
+
 
