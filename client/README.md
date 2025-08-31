@@ -55,3 +55,5 @@
 - Created Add Products Page in Seller Dashboard Section
 
 - Created ProductList Page in Seller Dashboard Section
+
+- Created Orders List Page in Seller Dashboard Section
