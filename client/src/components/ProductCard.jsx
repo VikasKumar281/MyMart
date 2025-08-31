@@ -4,7 +4,7 @@ import { useAppContext } from "../context/AppContext";
 
 
 const ProductCard = ({product}) => {
-    const {currency, addToCart, removeFromCart, cartItems, navigate} = useAppContext()
+    const {currency, addToCart, removeFromCart, cartItems, navigate} = useAppContext();
 
    
     return product && (

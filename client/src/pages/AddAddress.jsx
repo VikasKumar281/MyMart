@@ -3,7 +3,7 @@ import { assets } from '../assets/assets'
 import { useAppContext } from '../context/AppContext'
 import toast from 'react-hot-toast'
 
-// Input Field Component
+
 const InputField = ({ type, placeholder, name, handleChange, address })=>(
     <input className='w-full px-2 py-2.5 border border-gray-500/30 rounded outline-none text-gray-500 focus:border-primary transition'
     type={type}
@@ -60,11 +60,11 @@ const AddAddress = () => {
         }
     }
 
-    // useEffect(()=>{
-    //     if(!user){
-    //         navigate('/cart')
-    //     }
-    // },[])
+    useEffect(()=>{
+        if(!user){
+            navigate('/cart')
+        }
+    },[])
 
   return (
     <div className='mt-16 pb-16'>

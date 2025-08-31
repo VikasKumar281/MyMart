@@ -46,6 +46,10 @@
 
 - Created Address page 
 
--  Created My Orders page 
+- Created My Orders page 
+
+- Created Seller Login Page 
+
+- For Seller Layout , We will use Prebuilt UI's 'Sidebar with Navbar' code
 
 
