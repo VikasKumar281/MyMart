@@ -66,3 +66,4 @@
 
 - Install Nodemon -> npm install nodemon --save-dev
 
+- Connect MongoDB database
