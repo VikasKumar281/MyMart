@@ -66,4 +66,6 @@
 
 - Install Nodemon -> npm install nodemon --save-dev
 
-- Connect MongoDB database
+- Connected MongoDB database
+
+- Created API for User Registration  
