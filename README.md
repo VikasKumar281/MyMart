@@ -73,3 +73,6 @@
 - Created API for Login   
 
 - Created API for Authentication   
+
+- Created API for Logout
+
