@@ -76,3 +76,5 @@
 
 - Created API for Logout
 
+- Created APIs for Seller's Login , Authentication and Logged Out
+
