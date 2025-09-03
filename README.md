@@ -71,3 +71,5 @@
 - Created API for User Registration  
 
 - Created API for Login   
+
+- Created API for Authentication   
