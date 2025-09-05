@@ -78,3 +78,6 @@
 
 - Created APIs for Seller's Login , Authentication and Logged Out
 
+- Setup of Cloudinary Secret API , API Key
+
+-   

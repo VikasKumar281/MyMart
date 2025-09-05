@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 
 
-
 // Login Seller : /api/seller/login -------------------------------------------------------------------------->
 export const sellerLogin = async (req, res) =>{
     try {
@@ -27,7 +26,9 @@ export const sellerLogin = async (req, res) =>{
     }
 }
 
-// Seller isAuth : /api/seller/is-auth
+
+
+// Seller isAuth : /api/seller/is-auth ------------------------------------------------------------------->
 export const isSellerAuth = async (req, res)=>{
     try {
         return res.json({success: true})
@@ -37,8 +38,9 @@ export const isSellerAuth = async (req, res)=>{
     }
 }
 
-// Logout Seller : /api/seller/logout
 
+
+// Logout Seller : /api/seller/logout ------------------------------------------------------------------->
 export const sellerLogout = async (req, res)=>{
     try {
         res.clearCookie('sellerToken', {
