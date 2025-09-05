@@ -80,4 +80,6 @@
 
 - Setup of Cloudinary Secret API , API Key
 
--   
+- Created APIs for product (add , list ,id , inStock)
+
+- Created API for updating the cart data
