@@ -87,3 +87,10 @@
 - Created API for update the user's address.
 
 - Created APIs for "placing a new order" , "To get the order details for any user" and "To get all order details for seller or admin".
+
+- Now we have successfully created the Backend.
+
+
+# Connect Frontend with Backend =>
+
+- Install axios package in Client -> npm i axios (Using the axios package we can make the API calls).
