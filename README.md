@@ -83,3 +83,5 @@
 - Created APIs for product (add , list ,id , inStock)
 
 - Created API for updating the cart data
+
+- Created API for update the user's address
