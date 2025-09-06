@@ -82,6 +82,8 @@
 
 - Created APIs for product (add , list ,id , inStock)
 
-- Created API for updating the cart data
+- Created API for updating the cart data.
 
-- Created API for update the user's address
+- Created API for update the user's address.
+
+- Created APIs for "placing a new order" , "To get the order details for any user" and "To get all order details for seller or admin".
