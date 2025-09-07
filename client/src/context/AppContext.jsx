@@ -133,23 +133,30 @@ export const AppContextProvider = ({children}) => {
       fetchProducts()
   },[])
 
-  // Update Database Cart Items
+
+  // Update the State of Cart Items in the Database when cartItems change
   useEffect(()=>{
       const updateCart = async ()=>{
-          try {
-            const { data } = await axios.post('/api/cart/update', {cartItems})
-            if (!data.success){
-              toast.error(data.message)
-            }
-            } catch (error) {
-                toast.error(error.message)
-            }
+          
+        try {
+          const { data } = await axios.post('/api/cart/update', { cartItems })
+          
+          if (!data.success){
+            toast.error(data.message)
+          }
+
+        }
+        catch (error) {
+          toast.error(error.message)
+        }
+
       }
 
       if(user){
         updateCart()
       }
-  },[user ,cartItems])
+
+  },[cartItems])
 
   const value = {navigate, user, setUser, setIsSeller, isSeller,
       showUserLogin, setShowUserLogin, products, currency, addToCart,
