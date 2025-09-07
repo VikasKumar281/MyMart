@@ -17,7 +17,7 @@ const InputField = ({ type, placeholder, name, handleChange, address })=>(
 
 const AddAddress = () => {
 
-    const {axios, user, navigate} = useAppContext();
+    const { axios, user, navigate } = useAppContext();
 
     const [address, setAddress] = useState({
         firstName: '',
@@ -30,6 +30,7 @@ const AddAddress = () => {
         country: '',
         phone: '',
     })
+
 
     const handleChange = (e)=>{
         const { name, value } = e.target;
@@ -45,26 +46,34 @@ const AddAddress = () => {
 
 
     const onSubmitHandler = async (e)=>{
+        
         e.preventDefault();
+        
         try {
             const {data} = await axios.post('/api/address/add', {address});
 
             if (data.success){
                 toast.success(data.message)
                 navigate('/cart')
-            }else{
+            }
+            else{
                 toast.error(data.message)
             }
-        } catch (error) {
+        } 
+        catch (error) {
             toast.error(error.message)
         }
+
     }
+
+
 
     useEffect(()=>{
         if(!user){
             navigate('/cart')
         }
     },[])
+    
 
   return (
     <div className='mt-16 pb-16'>

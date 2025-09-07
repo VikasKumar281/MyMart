@@ -3,7 +3,10 @@ import { useAppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
 import toast from "react-hot-toast";
 
+
+
 const Cart = () => {
+
 
     const {products, currency, cartItems, removeFromCart, getCartCount, updateCartItem, navigate, getCartAmount, axios, user, setCartItems} = useAppContext()
     const [cartArray, setCartArray] = useState([])
@@ -11,6 +14,7 @@ const Cart = () => {
     const [showAddress, setShowAddress] = useState(false)
     const [selectedAddress, setSelectedAddress] = useState(null)
     const [paymentOption, setPaymentOption] = useState("COD")
+
 
 
     const getCart = ()=>{
@@ -23,22 +27,32 @@ const Cart = () => {
         setCartArray(tempArray)
     }
 
+
     const getUserAddress = async ()=>{
+        
         try {
+            
             const {data} = await axios.get('/api/address/get');
             if (data.success){
+                
                 setAddresses(data.addresses)
-                if(data.addresses.length > 0){
+                
+                if(data.addresses.length >0){
                     setSelectedAddress(data.addresses[0])
                 }
-            }else{
+
+            }
+            else{
                 toast.error(data.message)
             }
             
-        } catch (error) {
+        } 
+        catch (error) {
             toast.error(error.message)
         }
+
     }
+
 
     const placeOrder = async ()=>{
         try {
@@ -80,6 +94,7 @@ const Cart = () => {
         }
     }
 
+
     useEffect(()=>{
         if(products.length > 0 && cartItems){
             getCart()
@@ -92,6 +107,8 @@ const Cart = () => {
             getUserAddress()
         }
     },[user])
+
+    
     
     return products.length > 0 && cartItems ? (
         <div className="flex flex-col md:flex-row mt-16">
