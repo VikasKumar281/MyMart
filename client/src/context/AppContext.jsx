@@ -37,21 +37,26 @@ export const AppContextProvider = ({children}) => {
   }
 
 
-    // Fetch User Auth Status , User Data and Cart Items
+  // Fetch User Auth Status , User Data and Cart Items
   const fetchUser = async ()=>{
+    
     try {
         const {data} = await axios.get('/api/user/is-auth');
         if (data.success){
             setUser(data.user)
             setCartItems(data.user.cartItems)
         }
-    } catch (error) {
-      console.log(error);
     }
-  } 
+    catch (error) {
+      // console.log(error);
+      setUser(null)
+    }
+
+  }
+
  
 
-    // Fetch All Products
+  // Fetch All Products
   const fetchProducts = async ()=>{
         try {
             const { data } = await axios.get('/api/product/list')

@@ -18,15 +18,18 @@ const Login = () => {
             const {data} = await axios.post(`/api/user/${state}`,{
                 name, email, password
             });
+
             if (data.success){
                 navigate('/')
                 setUser(data.user)
                 setShowUserLogin(false)
-            }else{
+            }
+            else{
                 toast.error(data.message)
             }
 
-        } catch (error) {
+        } 
+        catch (error) {
             toast.error(error.message)
         }
         
