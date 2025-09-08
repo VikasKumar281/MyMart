@@ -90,8 +90,7 @@
 
 - Now we have successfully created the Backend.
 
-
-## Connect Frontend with Backend =>
+- Connect Frontend with Backend =>
 
 - Install axios package in Client -> npm i axios (Using the axios package we can make the API calls).
 

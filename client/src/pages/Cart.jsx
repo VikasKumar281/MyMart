@@ -8,7 +8,9 @@ import toast from "react-hot-toast";
 const Cart = () => {
 
 
-    const {products, currency, cartItems, removeFromCart, getCartCount, updateCartItem, navigate, getCartAmount, axios, user, setCartItems} = useAppContext()
+    const {products, currency, cartItems, removeFromCart, getCartCount, 
+      updateCartItem, navigate, getCartAmount, axios, user, setCartItems} = useAppContext()
+
     const [cartArray, setCartArray] = useState([])
     const [addresses, setAddresses] = useState([])
     const [showAddress, setShowAddress] = useState(false)
@@ -62,6 +64,7 @@ const Cart = () => {
 
             // Place Order with COD
             if(paymentOption === "COD"){
+                
                 const {data} = await axios.post('/api/order/cod', {
                     userId: user._id,
                     items: cartArray.map(item=> ({product: item._id, quantity: item.quantity})),
@@ -72,22 +75,11 @@ const Cart = () => {
                     toast.success(data.message)
                     setCartItems({})
                     navigate('/my-orders')
-                }else{
+                }
+                else{
                     toast.error(data.message)
                 }
-            }else{
-                // Place Order with Stripe
-                const {data} = await axios.post('/api/order/stripe', {
-                    userId: user._id,
-                    items: cartArray.map(item=> ({product: item._id, quantity: item.quantity})),
-                    address: selectedAddress._id
-                })
 
-                if(data.success){
-                    window.location.replace(data.url)
-                }else{
-                    toast.error(data.message)
-                }
             }
         } catch (error) {
             toast.error(error.message)
@@ -109,7 +101,7 @@ const Cart = () => {
     },[user])
 
     
-    
+
     return products.length > 0 && cartItems ? (
         <div className="flex flex-col md:flex-row mt-16">
             <div className='flex-1 max-w-4xl'>
