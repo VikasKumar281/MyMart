@@ -48,8 +48,8 @@ export const AppContextProvider = ({children}) => {
         }
     }
     catch (error) {
-      // console.log(error);
-      setUser(null)
+      console.log(error);
+      setUser(null);
     }
 
   }
@@ -156,7 +156,7 @@ export const AppContextProvider = ({children}) => {
         updateCart()
       }
 
-  },[cartItems])
+  },[user,cartItems])
 
   const value = {navigate, user, setUser, setIsSeller, isSeller,
       showUserLogin, setShowUserLogin, products, currency, addToCart,
