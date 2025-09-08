@@ -103,3 +103,5 @@
 - Adfded the feature of "Update the State of Cart Items in the Database when cartItems change"
 
 - Added the Functionality to add the delivery address
+
+- We used the Loading component to show a temporary loading state and then redirect the user to the appropriate page
