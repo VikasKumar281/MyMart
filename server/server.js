@@ -21,7 +21,7 @@ await connectCloudinary();
 
 
 // Allow Multiple Origins
-const allowedOrigins = ['http://localhost:5173']
+const allowedOrigins = ['http://localhost:5173', "https://mymart-bay.vercel.app"]
 
 
 //Middleware Configuration
