@@ -7,6 +7,7 @@ axios.defaults.withCredentials = true;
 // Get the Backend URL from environment variable ->
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
+
 export const AppContext = createContext();
 
 export const AppContextProvider = ({children}) => {
@@ -25,14 +26,16 @@ export const AppContextProvider = ({children}) => {
   // Fetch Seller Status
   const fetchSeller = async ()=>{
     try {
-        const {data} = await axios.get('/api/seller/is-auth');
+        const {data} = await axios.get('/api/seller/is-auth',{
+          withCredentials: true,  
+        });
         if(data.success){
             setIsSeller(true)
         }else{
             setIsSeller(false)
         }
     } catch(error) {
-        console.log(error);
+        // console.log(error);
     }
   }
 
@@ -41,14 +44,16 @@ export const AppContextProvider = ({children}) => {
   const fetchUser = async ()=>{
     
     try {
-        const {data} = await axios.get('/api/user/is-auth');
+        const {data} = await axios.get('/api/user/is-auth',{
+          withCredentials: true,  
+        });
         if (data.success){
             setUser(data.user)
             setCartItems(data.user.cartItems)
         }
     }
     catch (error) {
-      console.log(error);
+      // console.log(error);
       setUser(null);
     }
 
@@ -59,7 +64,9 @@ export const AppContextProvider = ({children}) => {
   // Fetch All Products
   const fetchProducts = async ()=>{
         try {
-            const { data } = await axios.get('/api/product/list')
+            const { data } = await axios.get('/api/product/list',{
+          withCredentials: true,  
+        })
             if(data.success){
                 setProducts(data.products)
             }else{
