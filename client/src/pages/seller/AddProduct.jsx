@@ -14,6 +14,15 @@ const AddProduct = () => {
 
     const {axios} = useAppContext()
 
+    const [isAdding, setIsAdding] = useState(false);
+    const handleAdd = async () => {
+       setIsAdding(true);
+
+      await new Promise(resolve => setTimeout(resolve, 2000)); // demo ke liye 2s delay
+
+      setIsAdding(false);
+    };
+
     const onSubmitHandler = async (event) => {
         try {
             event.preventDefault();
@@ -105,7 +114,13 @@ const AddProduct = () => {
                         id="offer-price" type="number" placeholder="0" className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40" required />
                     </div>
                 </div>
-                <button className="px-8 py-2.5 bg-green-700 hover:bg-primary-dull text-white font-medium rounded cursor-pointer">ADD</button>
+                <button
+      onClick={handleAdd}
+      disabled={isAdding}
+      className="px-8 py-2.5 bg-green-700 hover:bg-primary-dull text-white font-medium rounded cursor-pointer disabled:opacity-60"
+    >
+      {isAdding ? "Adding..." : "ADD"}
+    </button>
             </form>
         </div>
   )

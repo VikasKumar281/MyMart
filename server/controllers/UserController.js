@@ -77,18 +77,39 @@ export const login = async (req, res)=>{
 
 
 // Check Auth : /api/user/is-auth
-export const isAuth = async (req, res)=>{
-    try {
-        const { userId } = req.body;
-        const user = await User.findById(userId).select("-password")
-        return res.json({success: true, user})
+// export const isAuth = async (req, res)=>{
+//     try {
+//         const { userId } = req.body;
+//         const user = await User.findById(userId).select("-password")
+//         return res.json({success: true, user})
 
-    } catch (error) {
-        // console.log(error.message);
-        res.json({ success: false, message: error.message });
+//     } catch (error) {
+//         // console.log(error.message);
+//         res.json({ success: false, message: error.message });
+//     }
+// }
+
+export const isAuth = async (req, res) => {
+  try {
+    const token = req.cookies.token; // 👈 JWT token from cookie
+    if (!token) {
+      return res.status(401).json({ success: false, message: "Not authenticated" });
     }
-}
 
+    // verify token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // find user
+    const user = await User.findById(decoded.id).select("-password");
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    return res.json({ success: true, user });
+  } catch (error) {
+    return res.status(401).json({ success: false, message: "Invalid token" });
+  }
+};
 
 
 

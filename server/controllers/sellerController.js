@@ -1,5 +1,4 @@
-import jwt from 'jsonwebtoken';
-
+import jwt from "jsonwebtoken";
 
 // Login Seller : /api/seller/login -------------------------------------------------------------------------->
 export const sellerLogin = async (req, res) =>{
@@ -9,6 +8,8 @@ export const sellerLogin = async (req, res) =>{
         if(password === process.env.SELLER_PASSWORD && email === process.env.SELLER_EMAIL){
             const token = jwt.sign({email}, process.env.JWT_SECRET, {expiresIn: '7d'});
 
+            console.log("EMAIL:", process.env.SELLER_EMAIL);
+            console.log("PASSWORD:", process.env.SELLER_PASSWORD); 
             res.cookie('sellerToken', token, {
                 httpOnly: true, 
                 secure: process.env.NODE_ENV === 'production',
