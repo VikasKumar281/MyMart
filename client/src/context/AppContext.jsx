@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-// Get the Backend URL from environment variable ->
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 

@@ -91,23 +91,21 @@ export const login = async (req, res)=>{
 
 export const isAuth = async (req, res) => {
   try {
-    const token = req.cookies.token; // 👈 JWT token from cookie
+    const token = req.cookies.token;   // 👈 cookie से token लो
     if (!token) {
-      return res.status(401).json({ success: false, message: "Not authenticated" });
+      return res.json({ success: false, message: "Not authenticated" });
     }
 
-    // verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    // find user
     const user = await User.findById(decoded.id).select("-password");
+
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res.json({ success: false, message: "User not found" });
     }
 
     return res.json({ success: true, user });
   } catch (error) {
-    return res.status(401).json({ success: false, message: "Invalid token" });
+    return res.json({ success: false, message: error.message });
   }
 };
 
