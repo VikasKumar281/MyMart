@@ -14,15 +14,14 @@ const ProductDetails = () => {
     const product = products.find((item)=> item._id === id);
 
     useEffect(()=>{
-        if(products.length > 0){
-            let productsCopy = products.slice();
-            productsCopy = productsCopy.filter((item)=> product.category === item.category)
+        if(products.length > 0 && product){
+            const productsCopy = products.filter((item)=> product.category === item.category && item._id !== product._id)
             setRelatedProducts(productsCopy.slice(0,5))
         }
-    },[products])
+    },[products, product])
 
     useEffect(()=>{
-        setThumbnail(product?.image[0] ? product.image[0] : null)
+        setThumbnail(product?.image?.[0] ? product.image[0] : null)
     },[product])
 
 
@@ -69,7 +68,7 @@ const ProductDetails = () => {
 
                     <p className="text-base font-medium mt-6">About Product</p>
                     <ul className="list-disc ml-4 text-gray-500/70">
-                        {product.description.map((desc, index) => (
+                        {(Array.isArray(product.description) ? product.description : [product.description]).filter(Boolean).map((desc, index) => (
                             <li key={index}>{desc}</li>
                         ))}
                     </ul>

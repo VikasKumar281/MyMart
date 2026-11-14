@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useAppContext } from '../context/AppContext'
+import toast from 'react-hot-toast'
 
 
 
 const MyOrders = () => {
 
     const [myOrders, setMyOrders] = useState([])
-    const {currency, axios, user} = useAppContext()
+    const {currency, axios, user, setCartItems} = useAppContext()
 
     const fetchMyOrders = async ()=>{
         try {
@@ -24,9 +25,29 @@ const MyOrders = () => {
 
     
     useEffect(()=>{
-        if(user){
+        const loadOrders = async () => {
+            if(!user) return
+
+            const sessionId = new URLSearchParams(window.location.search).get("session_id")
+            if (sessionId) {
+                try {
+                    const { data } = await axios.post('/api/order/verify-stripe', { sessionId })
+                    if (data.success) {
+                        setCartItems({})
+                        toast.success(data.message)
+                    } else {
+                        toast.error(data.message)
+                    }
+                } catch (error) {
+                    toast.error(error.message)
+                }
+                window.history.replaceState({}, "", "/my-orders")
+            }
+
             fetchMyOrders()
         }
+
+        loadOrders()
     },[user])
 
 
@@ -43,7 +64,10 @@ const MyOrders = () => {
                     <span>Payment : {order.paymentType}</span>
                     <span>Total Amount : {currency}{order.amount}</span>
                 </p>
-                {order.items.map((item, index)=>(
+                {order.items.map((item, index)=>{
+                    const product = item.product
+                    if (!product || typeof product !== "object") return null
+                    return (
                     <div key={index}
                     className={`relative bg-white text-gray-500/70 ${
                 order.items.length !== index + 1 && "border-b"
@@ -51,11 +75,11 @@ const MyOrders = () => {
 
                       <div className='flex items-center mb-4 md:mb-0'>
                         <div className='bg-primary/10 p-4 rounded-lg'>
-                         <img src={item.product.image[0]} alt="" className='w-16 h-16' />
+                         <img src={product.image?.[0]} alt="" className='w-16 h-16' />
                          </div>
                          <div className='ml-4'>
-                            <h2 className='text-xl font-medium text-gray-800'>{item.product.name}</h2>
-                            <p>Category: {item.product.category}</p>
+                            <h2 className='text-xl font-medium text-gray-800'>{product.name}</h2>
+                            <p>Category: {product.category}</p>
                          </div>
                        </div>
 
@@ -65,11 +89,11 @@ const MyOrders = () => {
                         <p>Date: {new Date(order.createdAt).toLocaleDateString()}</p>
                     </div>
                     <p className='text-green-700 text-lg font-medium'>
-                        Amount: {currency}{item.product.offerPrice * item.quantity}
+                        Amount: {currency}{product.offerPrice * item.quantity}
                     </p>
                         
                     </div>
-                ))}
+                )})}
             </div>
         ))}
       

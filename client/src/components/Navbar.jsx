@@ -2,52 +2,22 @@ import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
-import toast from "react-hot-toast";
 
 const Navbar = () => {
   const [open, setOpen] = React.useState(false);
   const {
     user,
     isSeller,
-    setUser,
     setShowUserLogin,
     navigate,
     setSearchQuery,
     searchQuery,
     getCartCount,
-    axios,
-    isSellerActive,
+    logoutUser,
   } = useAppContext();
 
-
-  const logout = async () => {
-    try {
-      const { data } = await axios.post(
-        "/api/user/logout",
-        {},
-        { withCredentials: true } 
-      );
-
-      if (data.success) {
-        toast.success(data.message);
-        setUser(null); 
-        navigate("/");
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
-  
-
   const handleSellerDashboard = () => {
-    if (isSeller) {
-      navigate('/seller');   
-    } else {
-      navigate('/seller');
-    }
+    navigate("/seller");
   };
 
 
@@ -70,15 +40,12 @@ const Navbar = () => {
         <NavLink to="/products">All Products</NavLink>
         <NavLink to="/">Contact</NavLink>
 
-        {/* Seller Dashboard Button */}
-        { user && 
-          <button
-            onClick={handleSellerDashboard}
-            className="px-4 py-1 bg-green-700 text-white rounded-full text-sm font-medium  hover:bg-primary-dull transition cursor-pointer"
-          >
-            {isSeller && isSellerActive ? "Dashboard" : "Seller Dashboard"}
-          </button> 
-        }
+        <button
+          onClick={handleSellerDashboard}
+          className="px-4 py-1 bg-green-700 text-white rounded-full text-sm font-medium  hover:bg-primary-dull transition cursor-pointer"
+        >
+          {isSeller ? "Dashboard" : "Seller Dashboard"}
+        </button>
 
         <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
           <input
@@ -119,13 +86,13 @@ const Navbar = () => {
                        border-gray-200 py-2.5 w-30 rounded-md text-sm z-40"
             >
               <li
-                onClick={() => navigate("my-orders")}
+                onClick={() => navigate("/my-orders")}
                 className="p-1.5 pl-3 hover:bg-primary/10 cursor-pointer"
               >
                 My Orders
               </li>
               <li
-                onClick={logout}
+                onClick={logoutUser}
                 className="p-1.5 pl-3 hover:bg-primary/10 cursor-pointer"
               >
                 Logout
@@ -172,7 +139,7 @@ const Navbar = () => {
             All Product
           </NavLink>
           {user && (
-            <NavLink to="/products" onClick={() => setOpen(false)}>
+            <NavLink to="/my-orders" onClick={() => setOpen(false)}>
               My Orders
             </NavLink>
           )}
@@ -180,18 +147,15 @@ const Navbar = () => {
             Contact
           </NavLink>
 
-          {/* Mobile Seller Dashboard */}
-          {user && 
-            <button
-              onClick={() => {
-                setOpen(false);
-                handleSellerDashboard();
-              }}
-              className="px-4 py-2 bg-green-600 text-white rounded-full text-sm font-medium w-full text-center hover:bg-primary-dull transition cursor-pointer"
-            >
-              {isSeller && isSellerActive ? "Dashboard" : "Seller Dashboard"}
-            </button>
-          }
+          <button
+            onClick={() => {
+              setOpen(false);
+              handleSellerDashboard();
+            }}
+            className="px-4 py-2 bg-green-600 text-white rounded-full text-sm font-medium w-full text-center hover:bg-primary-dull transition cursor-pointer"
+          >
+            {isSeller ? "Dashboard" : "Seller Dashboard"}
+          </button>
 
           {!user ? (
             <button
@@ -205,7 +169,7 @@ const Navbar = () => {
             </button>
           ) : (
             <button
-              onClick={logout}
+              onClick={logoutUser}
               className="cursor-pointer px-6 py-2 mt-2 bg-green-700 hover:bg-primary-dull transition text-white rounded-full text-sm"
             >
               Logout

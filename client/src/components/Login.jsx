@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 
 const Login = () => {
 
-    const {setShowUserLogin, setUser, axios, navigate} = useAppContext()
+    const {setShowUserLogin, axios, navigate, onLoginSuccess} = useAppContext()
 
     const [state, setState] = useState("login");
     const [name, setName] = useState("");
@@ -20,9 +20,9 @@ const Login = () => {
             },{ withCredentials: true });
 
             if (data.success){
-                navigate('/')
-                setUser(data.user)
+                onLoginSuccess(data)
                 setShowUserLogin(false)
+                navigate('/')
             }
             else{
                 toast.error(data.message)

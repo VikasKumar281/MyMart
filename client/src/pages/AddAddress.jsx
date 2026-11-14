@@ -39,8 +39,6 @@ const AddAddress = () => {
             ...prevAddress,
             [name]: value,
         }))
-        console.log(address);
-        
     }
 
 
@@ -69,10 +67,11 @@ const AddAddress = () => {
 
 
     useEffect(()=>{
-        if(!user){
+        const token = localStorage.getItem("token")
+        if(!user && !token){
             navigate('/cart')
         }
-    },[])
+    },[user, navigate])
     
 
   return (
