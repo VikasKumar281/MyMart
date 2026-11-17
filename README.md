@@ -1,5 +1,41 @@
 # MyMart =>
 
+## Deploy on Vercel
+
+This app needs **two** Vercel projects from the same GitHub repo: one for `client` and one for `server`.
+
+### 1. Backend project
+
+- Import `VikasKumar281/MyMart`
+- Root Directory: `server`
+- Framework Preset: Other
+- Environment variables:
+  - `MONGODB_URI` — full Atlas connection string. Do not add `/MyMart` at the end. The server uses the `MyMart` database.
+  - `JWT_SECRET`
+  - `SELLER_EMAIL`
+  - `SELLER_PASSWORD`
+  - `CLOUDINARY_CLOUD_NAME`
+  - `CLOUDINARY_API_KEY`
+  - `CLOUDINARY_API_SECRET`
+  - `CLIENT_URL` — exact frontend URL, for example `https://mymart-bay.vercel.app`
+  - `NODE_ENV` = `production`
+  - `STRIPE_SECRET_KEY` — only if you want online card payment
+  - `STRIPE_CURRENCY` = `inr`
+- In MongoDB Atlas, Network Access must allow `0.0.0.0/0` so Vercel can connect.
+- Open the backend URL. It should say `API is Working`.
+
+### 2. Frontend project
+
+- Import the same repo again
+- Root Directory: `client`
+- Framework Preset: Vite
+- Environment variables (set before the first build):
+  - `VITE_BACKEND_URL` — backend URL with no slash at the end, for example `https://your-server.vercel.app`
+  - `VITE_CURRENCY` = `₹`
+- Redeploy the frontend after changing `VITE_BACKEND_URL`. Vite reads that value only at build time.
+
+Cash on Delivery works with the current env file. Online payment runs in test mode and does not charge a real card. Leave `STRIPE_SECRET_KEY` empty to use the in-app test card `4242 4242 4242 4242`. A live key starting with `sk_live_` is rejected.
+
 ## FrontEnd => (npm run dev)
 
 - Create a clent folder using - npm create vite@latest
