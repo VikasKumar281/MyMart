@@ -7,6 +7,7 @@ import toast from 'react-hot-toast'
 const MyOrders = () => {
 
     const [myOrders, setMyOrders] = useState([])
+    const [loading, setLoading] = useState(true)
     const {currency, axios, user, setCartItems} = useAppContext()
 
     const fetchMyOrders = async ()=>{
@@ -26,7 +27,10 @@ const MyOrders = () => {
     
     useEffect(()=>{
         const loadOrders = async () => {
-            if(!user) return
+            if(!user) {
+                setLoading(false)
+                return
+            }
 
             const sessionId = new URLSearchParams(window.location.search).get("session_id")
             if (sessionId) {
@@ -34,6 +38,7 @@ const MyOrders = () => {
                     const { data } = await axios.post('/api/order/verify-stripe', { sessionId })
                     if (data.success) {
                         setCartItems({})
+                        if (data.orders) setMyOrders(data.orders)
                         toast.success(data.message)
                     } else {
                         toast.error(data.message)
@@ -44,7 +49,8 @@ const MyOrders = () => {
                 window.history.replaceState({}, "", "/my-orders")
             }
 
-            fetchMyOrders()
+            await fetchMyOrders()
+            setLoading(false)
         }
 
         loadOrders()
@@ -57,6 +63,10 @@ const MyOrders = () => {
             <p className='text-2xl font-medium uppercase'>My orders</p>
             <div className='w-16 h-0.5 bg-primary rounded-full'></div>
         </div>
+        {loading && <p className="text-gray-500">Loading your orders...</p>}
+        {!loading && myOrders.length === 0 && (
+            <p className="text-gray-500">No orders yet. A paid order will appear here.</p>
+        )}
         {myOrders.map((order, index)=>(
             <div key={index} className='border border-gray-300 rounded-lg mb-10 p-4 py-5 max-w-4xl'>
                 <p className='flex justify-between md:items-center text-gray-400 md:font-medium max-md:flex-col'>
