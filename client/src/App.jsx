@@ -17,6 +17,8 @@ import SellerLayout from './pages/seller/SellerLayout.jsx';
 import AddProduct from './pages/seller/AddProduct.jsx';
 import ProductList from './pages/seller/ProductList';
 import Orders from './pages/seller/Orders';
+import Contact from './pages/Contact.jsx';
+import Help from './pages/Help.jsx';
 
 
 
@@ -39,6 +41,8 @@ const App = () => {
           <Routes>
            
             <Route path='/' element={<Home/>} />
+            <Route path='/contact' element={<Contact/>} />
+            <Route path='/help' element={<Help/>} />
             <Route path='/products' element={<AllProducts/>} />
             <Route path='/products/:category' element={<ProductCategory/>} />
             <Route path='/products/:category/:id' element={<ProductDetails/>} />

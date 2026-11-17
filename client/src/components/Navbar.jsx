@@ -38,7 +38,7 @@ const Navbar = () => {
       <div className="hidden sm:flex items-center gap-8">
         <NavLink to="/">Home</NavLink>
         <NavLink to="/products">All Products</NavLink>
-        <NavLink to="/">Contact</NavLink>
+        <NavLink to="/contact">Contact</NavLink>
 
         <button
           onClick={handleSellerDashboard}
@@ -143,7 +143,7 @@ const Navbar = () => {
               My Orders
             </NavLink>
           )}
-          <NavLink to="/" onClick={() => setOpen(false)}>
+          <NavLink to="/contact" onClick={() => setOpen(false)}>
             Contact
           </NavLink>
 
