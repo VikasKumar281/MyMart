@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar.jsx'
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import Home from './pages/Home.jsx';
 import { Toaster } from 'react-hot-toast';
 import Footer from './components/Footer.jsx';
@@ -24,8 +25,17 @@ import Help from './pages/Help.jsx';
 
 const App = () => {
   
-  const isSellerPath = useLocation().pathname.includes("seller");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isSellerPath = location.pathname.includes("seller");
   const {showUserLogin , isSeller } = useAppContext()
+
+  useEffect(() => {
+    const sessionId = new URLSearchParams(location.search).get("session_id");
+    if (sessionId && location.pathname !== "/my-orders") {
+      navigate(`/my-orders?session_id=${encodeURIComponent(sessionId)}`, { replace: true });
+    }
+  }, [location.pathname, location.search, navigate]);
   
   
   return (
