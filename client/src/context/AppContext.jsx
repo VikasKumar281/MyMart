@@ -37,8 +37,16 @@ export const AppContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isSeller, setIsSeller] = useState(false);
   const [showUserLogin, setShowUserLogin] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [productsLoaded, setProductsLoaded] = useState(false);
+  const cachedProducts = (() => {
+    try {
+      const saved = sessionStorage.getItem("mymart-products");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  })();
+  const [products, setProducts] = useState(cachedProducts);
+  const [productsLoaded, setProductsLoaded] = useState(cachedProducts.length > 0);
   const [cartItems, setCartItems] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
   const [cartReady, setCartReady] = useState(false);
@@ -84,6 +92,7 @@ export const AppContextProvider = ({ children }) => {
       const { data } = await axios.get("/api/product/list");
       if (data.success) {
         setProducts(data.products);
+        sessionStorage.setItem("mymart-products", JSON.stringify(data.products));
       } else {
         toast.error(data.message);
       }

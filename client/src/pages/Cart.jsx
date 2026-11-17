@@ -108,7 +108,11 @@ const Cart = () => {
 
     
 
-    if (!productsLoaded) return null
+    if (!productsLoaded) {
+        return (
+            <div className="mt-16 min-h-[50vh] text-gray-500">Loading cart...</div>
+        )
+    }
 
     if (!cartArray.length) {
         return (

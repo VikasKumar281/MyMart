@@ -1,25 +1,26 @@
 import Navbar from './components/Navbar.jsx'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import Home from './pages/Home.jsx';
+import { lazy, Suspense, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Footer from './components/Footer.jsx';
 import { useAppContext } from './context/AppContext.jsx';
 import Login from './components/Login.jsx';
-import AllProducts from './pages/AllProducts.jsx';
-import ProductCategory from './pages/ProductCategory.jsx';
-import ProductDetails from './pages/ProductDetails.jsx';
-import Cart from './pages/Cart.jsx';
-import AddAddress from './pages/AddAddress.jsx';
-import MyOrders from './pages/MyOrders.jsx';
-import PaymentTest from './pages/PaymentTest.jsx';
-import SellerLogin from './components/seller/SellerLogin.jsx';
-import SellerLayout from './pages/seller/SellerLayout.jsx';
-import AddProduct from './pages/seller/AddProduct.jsx';
-import ProductList from './pages/seller/ProductList';
-import Orders from './pages/seller/Orders';
-import Contact from './pages/Contact.jsx';
-import Help from './pages/Help.jsx';
+
+const Home = lazy(() => import('./pages/Home.jsx'));
+const AllProducts = lazy(() => import('./pages/AllProducts.jsx'));
+const ProductCategory = lazy(() => import('./pages/ProductCategory.jsx'));
+const ProductDetails = lazy(() => import('./pages/ProductDetails.jsx'));
+const Cart = lazy(() => import('./pages/Cart.jsx'));
+const AddAddress = lazy(() => import('./pages/AddAddress.jsx'));
+const MyOrders = lazy(() => import('./pages/MyOrders.jsx'));
+const PaymentTest = lazy(() => import('./pages/PaymentTest.jsx'));
+const SellerLogin = lazy(() => import('./components/seller/SellerLogin.jsx'));
+const SellerLayout = lazy(() => import('./pages/seller/SellerLayout.jsx'));
+const AddProduct = lazy(() => import('./pages/seller/AddProduct.jsx'));
+const ProductList = lazy(() => import('./pages/seller/ProductList'));
+const Orders = lazy(() => import('./pages/seller/Orders'));
+const Contact = lazy(() => import('./pages/Contact.jsx'));
+const Help = lazy(() => import('./pages/Help.jsx'));
 
 
 
@@ -39,15 +40,15 @@ const App = () => {
   
   
   return (
-    <div className='text-default min-h-screen text-gray-700 bg-white' >
+    <div className='text-default min-h-screen flex flex-col text-gray-700 bg-white' >
        {isSellerPath ? null : <Navbar/>} 
        {showUserLogin ? <Login/> : null}
        
 
        <Toaster/>
 
-       <div className={`${isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
-          
+       <div className={`flex-1 ${isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
+          <Suspense fallback={<div className="min-h-[50vh] mt-16 text-gray-500">Loading...</div>}>
           <Routes>
            
             <Route path='/' element={<Home/>} />
@@ -68,6 +69,7 @@ const App = () => {
             </Route>
           
           </Routes>
+          </Suspense>
 
        </div>
       {!isSellerPath && <Footer/>}

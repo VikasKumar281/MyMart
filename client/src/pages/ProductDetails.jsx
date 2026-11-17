@@ -6,7 +6,7 @@ import ProductCard from "../components/ProductCard";
 
 const ProductDetails = () => {
 
-    const {products, navigate, currency, addToCart} = useAppContext()
+    const {products, productsLoaded, navigate, currency, addToCart} = useAppContext()
     const {id} = useParams()
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [thumbnail, setThumbnail] = useState(null);
@@ -25,7 +25,15 @@ const ProductDetails = () => {
     },[product])
 
 
-    return product && (
+    if (!product) {
+        return (
+            <div className="mt-16 min-h-[40vh] text-gray-500">
+                {productsLoaded ? "Product not found." : "Loading product..."}
+            </div>
+        )
+    }
+
+    return (
         <div className="mt-12">
             <p>
                 <Link to={"/"}>Home</Link> /
